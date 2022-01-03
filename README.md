@@ -2,8 +2,10 @@
 
 Setup Minimal Cent OS Stream host. The ssh interface will on a LAN
 
-## Download CenOS Latest
+## Install Virtual Machine
 
+1. Download CentOS Latest
+   * [https://www.centos.org/download/]
 1. upload to VCenter
 1. Create a Vitual Host
 1. Install
