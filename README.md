@@ -1,4 +1,4 @@
-# Centstream
+# CentStream
 
 Setup Minimal Cent OS Stream host. The ssh interface will on a LAN
 
@@ -13,7 +13,7 @@ Setup Minimal Cent OS Stream host. The ssh interface will on a LAN
 ## Login
 
 1. Basic Packages
-   * dnf install mc httpd php
+   * dnf install mc net-tools httpd php
 1. Install Key, Disable SELinix, lock down ssh, Add sites Config
 
 ```bash
@@ -35,7 +35,7 @@ sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/selinux/config
 # Add sites Config
 mkdir /etc/httpd/sites-enabled/
 # add a line to the Apache configuration file:
-echo Include sites-enabled/*.conf>>/etc/httpd/conf/httpd.conf
+echo IncludeOptional sites-enabled/*.conf>>/etc/httpd/conf/httpd.conf
 ```
 
 ## Add a Site
@@ -50,11 +50,29 @@ echo "hello world" >>/opt/data/sites/www/public/index.html
 ```config
 <VirtualHost 111.111.111.111:80 >
   ServerName [yourserver]
+
   DocumentRoot /opt/data/sites/www/public/
-  CustomLog /opt/data/logs/yourserver_access_log combined
-  ErrorLog /opt/data/logs/yourserver_error_log
-  AddType application/x-httpd-php .php
+
+  AccessFileName .htaccess
+  <Directory /opt/data/>
+    AllowOverride All
+    Require all granted
+  </Directory>
+
+  <FilesMatch \.php$>
+    <If "-f %{SCRIPT_FILENAME}">
+      SetHandler "proxy:unix:/run/php-fpm/www.sock|fcgi://localhost"
+    </If>
+  </FilesMatch>
+
 </VirtualHost>
+```
+
+## Create open firewall, Enable Services
+
+```bash
+firewall-cmd --zone=public --add-service=http --permanent
+systemctl enable httpd php-fpm
 ```
 
 ## reboot
