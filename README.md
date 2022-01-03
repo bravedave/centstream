@@ -22,6 +22,9 @@ chmod 700 .ssh
 echo [your key] >.ssh/authorized_keys
 chmod 600 .ssh/authorized_keys
 
+# find your ip address
+ip -4 addr show | grep global | awk '{ print $2; }'
+
 # bind ssh to lan port
 sed -i 's/^[#]ListenAddress 0.*/ListenAddress 111.111.111.111 /g' /etc/ssh/sshd_config
 
