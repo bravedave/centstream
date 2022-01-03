@@ -3,11 +3,11 @@
 Setup Minimal Cent OS Stream host. The ssh interface will on a LAN
 
 1. Download CenOS Latest
-  a. upload to VCenter
-  b. Create a Vitual Host
-  c. Install
-    * Minimal install
-    * Allow root login with Password
+   1. upload to VCenter
+   1. Create a Vitual Host
+   1. Install
+      * Minimal install
+      * Allow root login with Password
 1. Login
   a. Basic Packages
     i. yum install mc httpd php
