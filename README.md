@@ -18,9 +18,13 @@ Setup Minimal Cent OS Stream host. The ssh interface will on a LAN
     * chmod 600 .ssh/authorized_keys
   b. Set root login to
 1. Add sites Config
-  a. mkdir /etc/httpd/sites-enabled/
-  b. And add a line to the Apache configuration file:
-    * ```Include sites-enabled/*.conf```
+
+```shell
+mkdir /etc/httpd/sites-enabled/
+# add a line to the Apache configuration file:
+echo Include sites-enabled/*.conf>>/etc/httpd/conf/httpd.conf
+```
+
 1. Add a Site
   a. mkdir -p /opt/data/sites/www/public
   b. echo "hello world" >>/opt/data/sites/www/public/index.html
