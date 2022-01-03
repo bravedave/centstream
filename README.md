@@ -101,3 +101,16 @@ chmod -R g+w /opt/data
 ## reboot
 
 all should work and you can login to remote machine with VSCode ...
+
+next thing i want to do is install composer [https://getcomposer.org/download/] ... as the user
+
+```bash
+mkdir bin
+
+echo PATH=$PATH:$HOME/bin >>~/.bash_profile
+echo export PATH >>~/.bash_profile
+
+cd bin
+# follow instructions from https://getcomposer.org/download/
+# finish with mv composer.phar composer
+```
