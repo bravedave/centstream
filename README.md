@@ -14,7 +14,7 @@ Setup Minimal Cent OS Stream host. The ssh interface will on a LAN
 
 1. Basic Packages
    * dnf install mc httpd php
-1. Install Key, Disable SELinix, lock down ssh
+1. Install Key, Disable SELinix, lock down ssh, Add sites Config
 
 ```bash
 mkdir .ssh
@@ -31,20 +31,21 @@ sed -i 's/^[#]PasswordAuthentication.*/PasswordAuthentication no/g' /etc/ssh/ssh
 
 # Disable SELinux
 sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/selinux/config
-```
 
-1. Add sites Config
-
-```bash
+# Add sites Config
 mkdir /etc/httpd/sites-enabled/
 # add a line to the Apache configuration file:
 echo Include sites-enabled/*.conf>>/etc/httpd/conf/httpd.conf
 ```
 
-1. Add a Site
-  a. mkdir -p /opt/data/sites/www/public
-  b. echo "hello world" >>/opt/data/sites/www/public/index.html
-  c. create config
+## Add a Site
+
+```bash
+mkdir -p /opt/data/sites/www/public
+echo "hello world" >>/opt/data/sites/www/public/index.html
+```
+
+## create config
 
 ```config
 <VirtualHost 111.111.111.111:80 >
@@ -55,3 +56,5 @@ echo Include sites-enabled/*.conf>>/etc/httpd/conf/httpd.conf
   AddType application/x-httpd-php .php
 </VirtualHost>
 ```
+
+## reboot
