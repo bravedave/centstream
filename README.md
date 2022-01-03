@@ -15,7 +15,7 @@ Setup Minimal Cent OS Stream host. The ssh interface will on a LAN
 ## Login
 
 1. Basic Packages
-   * dnf install mc net-tools httpd php
+   * dnf install mc net-tools httpd php git zip
 1. Install Key, Disable SELinix, lock down ssh, Add sites Config
 
 ```bash
@@ -80,4 +80,24 @@ firewall-cmd --zone=public --add-service=http --permanent
 systemctl enable httpd php-fpm
 ```
 
+## create a user
+
+```bash
+# add user to users group
+useradd -g 100 [username]
+
+# then add keys for auth
+cd /home/[username]/
+mkdir .ssh
+chmod 700 .ssh
+echo [your key] >.ssh/authorized_keys
+chmod 600 .ssh/authorized_keys
+chown -R [username].users .ssh
+
+# make the www writable by users
+chgrp -R users /opt/data
+chmod -R g+w /opt/data
+
 ## reboot
+
+all should work and you can login to remote machine with VSCode ...
