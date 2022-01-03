@@ -97,6 +97,7 @@ chown -R [username].users .ssh
 # make the www writable by users
 chgrp -R users /opt/data
 chmod -R g+w /opt/data
+```
 
 ## reboot
 
