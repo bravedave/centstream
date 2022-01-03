@@ -52,8 +52,8 @@ echo "hello world" >>/opt/data/sites/www/public/index.html
 
 ## create config
 
-```config
-<VirtualHost 111.111.111.111:80 >
+```conf
+<VirtualHost *:80>
   ServerName [yourserver]
 
   DocumentRoot /opt/data/sites/www/public/
